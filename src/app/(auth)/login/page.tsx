@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Shield, User, Lock, Eye, EyeOff } from "lucide-react";
+import {  User, Lock, Eye, EyeOff } from "lucide-react";
 import { useRouter } from 'next/navigation';
 import axios from '@/lib/axios';
 import { useUser } from '@/context/UserContext';

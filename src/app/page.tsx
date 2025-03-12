@@ -1,6 +1,6 @@
 // import Image from "next/image";
 import Link from "next/link";
-import { Shield, BookOpen, Users, FileText, Lock, ArrowRight } from "lucide-react";
+import {  BookOpen, Users, FileText,  ArrowRight } from "lucide-react";
 
 export default function Home() {
   return (

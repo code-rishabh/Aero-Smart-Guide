@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import {
   BookOpen,
   Users,
@@ -67,7 +67,6 @@ export default function DashboardLayout({
     
   ];
 
-  const router = useRouter();
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const { user } = useUser();

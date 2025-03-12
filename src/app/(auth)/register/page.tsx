@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from 'next/navigation';
-import { Shield, Mail, Lock, Eye, EyeOff, User } from "lucide-react";
+import {  Mail, Lock, Eye, EyeOff, User } from "lucide-react";
 import toast from 'react-hot-toast';
 
 export default function RegisterPage() {
