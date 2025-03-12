@@ -4,6 +4,12 @@ import { useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import DashboardLayout from '@/components/layouts/DashboardLayout';
 import { useUser } from '@/context/UserContext';
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Dashboard - Aero Smart Guide',
+  description: 'Overview of your manual hub',
+}
 
 export default function RootLayout({
   children,

@@ -1,6 +1,5 @@
 'use client';
 
-import { Metadata } from 'next'
 import { 
   BookOpen, 
   Users, 
@@ -8,11 +7,6 @@ import {
   Activity,
   TrendingUp
 } from 'lucide-react'
-
-export const metadata: Metadata = {
-  title: 'Dashboard - Aero Smart Guide',
-  description: 'Overview of your manual hub',
-}
 
 export default function DashboardPage() {
   return (
