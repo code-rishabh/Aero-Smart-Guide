@@ -43,7 +43,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-600">Content Creators</p>
-              <p className="text-2xl font-bold text-gray-900">12</p>
+              <p className="text-2xl font-    bold text-gray-900">12</p>
             </div>
             <UserPlus className="w-8 h-8 text-purple-500" />
           </div>

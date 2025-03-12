@@ -1,8 +1,10 @@
 import QRCode from 'qrcode';
 
 interface QRCodeData {
-  _id: string;
-  name: string;
+  guideId: string;
+  title: string;
+  version: string;
+  timestamp: string;
 }
 
 export const generateQRCode = async (data: QRCodeData): Promise<string> => {
