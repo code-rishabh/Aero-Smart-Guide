@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Users, Mail, Trash2, Search, ChevronDown, UserPlus } from 'lucide-react';
+import { Mail, Trash2, Search, ChevronDown, UserPlus, Users } from 'lucide-react';
 import toast from 'react-hot-toast';
 import axios from '@/lib/axios';
 
