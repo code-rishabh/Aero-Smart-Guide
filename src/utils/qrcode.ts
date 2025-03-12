@@ -1,6 +1,11 @@
 import QRCode from 'qrcode';
 
-export const generateQRCode = async (data: any): Promise<string> => {
+interface QRCodeData {
+  _id: string;
+  name: string;
+}
+
+export const generateQRCode = async (data: QRCodeData): Promise<string> => {
   try {
     // Generate QR code as data URL
     const qrDataUrl = await QRCode.toDataURL(JSON.stringify(data), {

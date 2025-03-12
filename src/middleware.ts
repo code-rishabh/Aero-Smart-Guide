@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { decodeToken } from '@/utils/jwt';
+// import type { NextRequest } from 'next/server';
+// import { decodeToken } from '@/utils/jwt';
 
-export function middleware(request: NextRequest) {
+export function middleware() {
   // Temporarily disable all auth checks for demo
   return NextResponse.next();
 

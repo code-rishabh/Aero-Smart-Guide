@@ -39,6 +39,11 @@ export default function GuideAllocationPage() {
     // Add more dummy allocations as needed
   ];
 
+  // Add this filtering logic
+  const filteredAllocations = allocations.filter(allocation => 
+    filterStatus === 'all' || allocation.status === filterStatus
+  );
+
   return (
     <div className="p-6">
       <PageHeader title="Guide Allocation">
@@ -113,7 +118,7 @@ export default function GuideAllocationPage() {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-brass-light/20">
-              {allocations.map((allocation) => (
+              {filteredAllocations.map((allocation) => (
                 <tr key={allocation.id}>
                   <td className="px-6 py-4">
                     <div className="flex flex-col">

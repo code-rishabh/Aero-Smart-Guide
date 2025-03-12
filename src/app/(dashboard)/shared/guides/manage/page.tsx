@@ -18,22 +18,24 @@ interface Guide {
   steps?: string[];
 }
 
-interface Content {
+interface RawContent {
   _id: string;
   type: string;
   link: string;
   filename?: string;
-  placement: string[];
+  placement?: string[];
 }
 
-interface Step {
+interface RawStep {
+  _id: string;
+  contents?: RawContent[];
+}
+
+interface RawGuide {
   _id: string;
   name: string;
-  welcome_audio: string;
   description: string;
-  contents: Content[];
-  created_at: string;
-  updated_at: string;
+  steps?: RawStep[];
 }
 
 export default function GuidesPage() {
@@ -61,11 +63,11 @@ export default function GuidesPage() {
       const { data } = await axios.get('/get-all-guides');
       console.log('Fetched guides:', data);
       const processedGuides = Array.isArray(data) 
-        ? data.map((guide: any) => ({
+        ? data.map((guide: RawGuide) => ({
             ...guide,
-            steps: guide.steps?.map((step: any) => ({
+            steps: guide.steps?.map((step: RawStep) => ({
               ...step,
-              contents: step.contents?.map((content: any) => ({
+              contents: step.contents?.map((content: RawContent) => ({
                 _id: content._id,
                 type: content.type,
                 link: content.link,
@@ -74,11 +76,11 @@ export default function GuidesPage() {
               }))
             }))
           }))
-        : data.guides?.map((guide: any) => ({
+        : data.guides?.map((guide: RawGuide) => ({
             ...guide,
-            steps: guide.steps?.map((step: any) => ({
+            steps: guide.steps?.map((step: RawStep) => ({
               ...step,
-              contents: step.contents?.map((content: any) => ({
+              contents: step.contents?.map((content: RawContent) => ({
                 _id: content._id,
                 type: content.type,
                 link: content.link,

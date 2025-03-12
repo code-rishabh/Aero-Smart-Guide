@@ -9,7 +9,6 @@ import {
   ArrowLeft, 
   Image as ImageIcon, 
   FileText, 
-  Link as LinkIcon,
   Box,
   FileAudio
 } from 'lucide-react';
@@ -81,9 +80,9 @@ export default function GuideDetailsPage() {
         if (data.status) {
           const guide = {
             ...data.guide,
-            steps: data.guide.steps.map((step: any) => ({
+            steps: data.guide.steps.map((step: Step) => ({
               ...step,
-              contents: step.contents.map((content: any) => ({
+              contents: step.contents.map((content: Omit<Content, '_id'> & { _id?: string }) => ({
                 _id: content._id,
                 type: content.type,
                 link: content.link,
@@ -128,25 +127,6 @@ export default function GuideDetailsPage() {
       </div>
     );
   }
-
-  const getContentTypeIcon = (type: Content['type']) => {
-    switch (type) {
-      case 'video':
-        return <Video className="w-5 h-5 text-brass-light" />;
-      case 'image':
-        return <ImageIcon className="w-5 h-5 text-brass-light" />;
-      case 'audio':
-        return <Music className="w-5 h-5 text-brass-light" />;
-      case 'document':
-        return <FileText className="w-5 h-5 text-brass-light" />;
-      case '3d':
-        return <Box className="w-5 h-5 text-brass-light" />;
-      case 'link':
-        return <LinkIcon className="w-5 h-5 text-brass-light" />;
-      default:
-        return <FileText className="w-5 h-5 text-brass-light" />;
-    }
-  };
 
   const ContentTypeIcon = ({ type }: { type: string }) => {
     switch (type.toLowerCase()) {

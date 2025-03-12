@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Shield, Check, X } from 'lucide-react';
+import {  Check, X } from 'lucide-react';
 import toast from 'react-hot-toast';
 import PageHeader from '@/components/ui/PageHeader';
 
@@ -48,8 +48,13 @@ const DEFAULT_PERMISSIONS = {
   2: [] // Trainee
 };
 
+// Add this type definition
+type RolePermissions = {
+  [key: number]: string[];
+};
+
 export default function AccessManagementPage() {
-  const [rolePermissions, setRolePermissions] = useState(DEFAULT_PERMISSIONS);
+  const [rolePermissions, setRolePermissions] = useState<RolePermissions>(DEFAULT_PERMISSIONS);
   const [isLoading, setIsLoading] = useState(false);
 
   const hasPermission = (roleId: number, permissionId: string) => {

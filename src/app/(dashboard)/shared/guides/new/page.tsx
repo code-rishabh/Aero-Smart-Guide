@@ -18,7 +18,6 @@ import toast from 'react-hot-toast';
 import PageHeader from '@/components/ui/PageHeader';
 import Image from 'next/image';
 import StepDescription from './components/StepDescription';
-import { generateQRCode } from '@/utils/qrcode';
 import QRCodeModal from '@/components/QRCodeModal';
 
 interface Content {
@@ -41,29 +40,17 @@ interface GuideData {
   steps: Step[];
 }
 
-interface GuideResponse {
-  status: boolean;
-  guide: {
+interface ApiStep {
+  _id: string;
+  name: string;
+  welcome_audio: string;
+  description: string;
+  contents: {
     _id: string;
-    name: string;
-    description: string;
-    steps: {
-      _id: string;
-      name: string;
-      welcome_audio: string;
-      description: string;
-      contents: {
-        _id: string;
-        type: string;
-        link: string;
-        placement: string[];
-      }[];
-      created_at: string;
-      updated_at: string;
-    }[];
-    created_at: string;
-    updated_at: string;
-  };
+    type: Content['type'];
+    link: string;
+    filename?: string;
+  }[];
 }
 
 export default function NewGuidePage() {
@@ -103,15 +90,15 @@ export default function NewGuidePage() {
         const formattedGuide = {
           name: data.guide.name,
           description: data.guide.description,
-          steps: data.guide.steps.map((step: any) => ({
+          steps: data.guide.steps.map((step: ApiStep) => ({
             id: step._id,
             name: step.name,
             welcome_audio: step.welcome_audio,
             description: step.description,
-            contents: step.contents.map((content: any) => ({
+            contents: step.contents.map((content) => ({
               type: content.type,
               link: content.link,
-              filename: content.filename || content.link.split('/').pop() || '', // Map filename from existing content
+              filename: content.filename || content.link.split('/').pop() || '',
             }))
           }))
         };
@@ -316,6 +303,8 @@ export default function NewGuidePage() {
     }
   };
 
+  const selectedStep = guideData.steps.find(step => step.id === selectedStepId);
+
   return (
     <div className="h-[calc(100vh-4rem)] flex flex-col bg-gray-50">
       <div className="border-b border-brass-light/20 px-4 py-3">
@@ -410,14 +399,14 @@ export default function NewGuidePage() {
           {selectedStepId ? (
             <div className="flex-1 overflow-y-auto p-6">
               <div className="max-w-3xl mx-auto  rounded-lg shadow-lg border border-brass-light/20 p-6">
-                {guideData.steps.find(step => step.id === selectedStepId) && (
+                {selectedStep && (
                   <div className="space-y-6">
                     <div>
                       <label className="block text-sm font-medium text-khaki-dark">Step Title</label>
                       <input
                         type="text"
-                        value={guideData.steps.find(step => step.id === selectedStepId)?.name}
-                        onChange={(e) => updateStep(selectedStepId, { name: e.target.value })}
+                        value={selectedStep.name}
+                        onChange={(e) => updateStep(selectedStep.id, { name: e.target.value })}
                         className="mt-1 block w-full rounded-lg bg-white/90 border border-brass-light/20 px-3 py-2 text-olive-dark placeholder-khaki/50 focus:outline-none focus:ring-1 focus:ring-brass-light"
                         placeholder="Enter step title"
                       />
@@ -425,12 +414,12 @@ export default function NewGuidePage() {
 
                     <div>
                       <StepDescription
-                        description={guideData.steps.find(step => step.id === selectedStepId)?.description || ''}
-                        welcomeAudio={guideData.steps.find(step => step.id === selectedStepId)?.welcome_audio || ''}
+                        description={selectedStep.description || ''}
+                        welcomeAudio={selectedStep.welcome_audio || ''}
                         isEditMode={isEditMode}
-                        stepId={selectedStepId}
-                        onDescriptionChange={(newDesc) => updateStep(selectedStepId, { description: newDesc })}
-                        onAudioSelect={(audioUrl) => updateStep(selectedStepId, { welcome_audio: audioUrl })}
+                        stepId={selectedStep.id}
+                        onDescriptionChange={(newDesc) => updateStep(selectedStep.id, { description: newDesc })}
+                        onAudioSelect={(audioUrl) => updateStep(selectedStep.id, { welcome_audio: audioUrl })}
                       />
                     </div>
 
@@ -447,7 +436,7 @@ export default function NewGuidePage() {
                         ].map((item) => (
                           <button 
                             key={item.type}
-                            onClick={() => handleMediaButtonClick(selectedStepId!, item.type)}
+                            onClick={() => handleMediaButtonClick(selectedStep.id, item.type)}
                             className="group flex flex-col items-center justify-center p-3 border border-brass-light/20 rounded-lg hover:bg-brass-light/5 transition-all hover:border-brass-light bg-white/90"
                           >
                             <item.icon className="w-5 h-5 text-khaki group-hover:text-brass transition-colors" />
@@ -458,11 +447,11 @@ export default function NewGuidePage() {
                     </div>
 
                     {/* Media Preview */}
-                    {guideData.steps.find(step => step.id === selectedStepId)?.contents.length > 0 && (
+                    {selectedStep.contents?.length > 0 && (
                     <div>
                         <label className="block text-sm font-medium text-khaki-dark mb-3">Uploaded Media</label>
                         <div className="grid grid-cols-3 gap-4">
-                          {guideData.steps.find(step => step.id === selectedStepId)?.contents.map((item, i) => (
+                          {selectedStep.contents?.map((item, i) => (
                             <div key={i} className="group relative bg-white rounded-lg border border-brass-light/20 overflow-hidden hover:border-brass-light transition-all">
                               <div className="p-3">
                                 <div className="flex items-start space-x-3">
@@ -510,7 +499,7 @@ export default function NewGuidePage() {
                                 <button 
                                   onClick={() => {
                                     if (confirm('Are you sure you want to remove this media?')) {
-                                      removeContent(selectedStepId, i);
+                                      removeContent(selectedStep.id, i);
                                     }
                                   }}
                                   className="p-1.5 bg-olive-light/10 rounded text-red-400 hover:bg-red-50 transition-colors"

@@ -6,7 +6,7 @@ import {
   ChevronRight,
   BookPlus,
   BookOpen,
-  Users,
+  
   UserPlus,
 } from 'lucide-react';
 

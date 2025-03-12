@@ -9,7 +9,6 @@ import {
   Trash2,
   Search,
   Filter,
-  MoreVertical
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -45,7 +44,6 @@ const sampleGuides: Guide[] = [
 
 export default function GuidesPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedGuide, setSelectedGuide] = useState<string | null>(null);
 
   const handleDeleteGuide = (guideId: string) => {
     // Implement delete functionality
