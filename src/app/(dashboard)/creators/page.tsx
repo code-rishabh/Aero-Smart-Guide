@@ -5,7 +5,7 @@ import {
   ChevronRight,
   BookPlus,
   BookOpen,
-  Users
+
 } from 'lucide-react';
 
 interface ActionCardProps {
