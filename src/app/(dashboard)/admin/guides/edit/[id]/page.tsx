@@ -1,0 +1,1 @@
+export { default } from '@/app/(dashboard)/shared/guides/edit/[id]/page'; 

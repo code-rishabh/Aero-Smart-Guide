@@ -1,0 +1,112 @@
+import { Metadata } from 'next'
+import { 
+  BookOpen, 
+  Users, 
+  UserPlus,
+  Activity,
+  TrendingUp
+} from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Dashboard - Aero Smart Guide',
+  description: 'Overview of your manual hub',
+}
+
+export default function DashboardPage() {
+  return (
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold text-gray-900">Dashboard Overview</h1>
+      
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Total Guides</p>
+              <p className="text-2xl font-bold text-gray-900">24</p>
+            </div>
+            <BookOpen className="w-8 h-8 text-green-500" />
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Active Trainees</p>
+              <p className="text-2xl font-bold text-gray-900">156</p>
+            </div>
+            <Users className="w-8 h-8 text-blue-500" />
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Content Creators</p>
+              <p className="text-2xl font-bold text-gray-900">12</p>
+            </div>
+            <UserPlus className="w-8 h-8 text-purple-500" />
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-600">Active Sessions</p>
+              <p className="text-2xl font-bold text-gray-900">38</p>
+            </div>
+            <Activity className="w-8 h-8 text-orange-500" />
+          </div>
+        </div>
+      </div>
+
+      {/* Recent Activity */}
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
+        <div className="space-y-4">
+          <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <div>
+              <p className="text-sm font-medium text-gray-900">New Guide Created</p>
+              <p className="text-sm text-gray-500">Maintenance Protocol XJ-238</p>
+            </div>
+            <span className="ml-auto text-sm text-gray-500">2 hours ago</span>
+          </div>
+          
+          <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg">
+            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+            <div>
+              <p className="text-sm font-medium text-gray-900">Training Session Completed</p>
+              <p className="text-sm text-gray-500">15 trainees completed Module A</p>
+            </div>
+            <span className="ml-auto text-sm text-gray-500">5 hours ago</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Performance Metrics */}
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">Performance Metrics</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="flex items-center space-x-2 mb-2">
+              <TrendingUp className="w-5 h-5 text-green-500" />
+              <h3 className="font-medium text-gray-900">Guide Completion Rate</h3>
+            </div>
+            <p className="text-2xl font-bold text-gray-900">87%</p>
+            <p className="text-sm text-gray-500">+12% from last month</p>
+          </div>
+          
+          <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="flex items-center space-x-2 mb-2">
+              <Activity className="w-5 h-5 text-blue-500" />
+              <h3 className="font-medium text-gray-900">Average Training Time</h3>
+            </div>
+            <p className="text-2xl font-bold text-gray-900">4.2 hrs</p>
+            <p className="text-sm text-gray-500">-30min from last month</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
