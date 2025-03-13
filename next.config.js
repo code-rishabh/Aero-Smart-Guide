@@ -25,8 +25,7 @@ const nextConfig = {
       fs: false,
     };
     return config;
-  },
-  output: 'export',
+  }
 }
 
 module.exports = nextConfig 
